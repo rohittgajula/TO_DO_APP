@@ -8,7 +8,6 @@ from rest_framework import permissions, authentication
 from .models import Tag, Task
 from .serializers import TaskSerializer, TagSerializer
 
-
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([authentication.BasicAuthentication])
 class TaskAPI(APIView):
