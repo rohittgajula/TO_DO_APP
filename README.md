@@ -8,7 +8,8 @@ All the required packages are mentioned in requirement.txt file
 
 Once your repo directory is set run migrations commands
 
-$ python manage.py makemigrations
+$ python manage.py makemigrations,
+
 $ python manage.py migrate
 
 You can 
