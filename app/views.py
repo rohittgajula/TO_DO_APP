@@ -11,7 +11,7 @@ from .serializers import TaskSerializer, TagSerializer
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([authentication.BasicAuthentication])
 class TaskAPI(APIView):
-
+    
     def get(self, request):
         objs = Task.objects.all()
         serializer = TaskSerializer(objs, many=True)
@@ -66,6 +66,23 @@ class TaskAPI(APIView):
         return Response({
             'message':'Sucessfully deleated.'
             }, status.HTTP_202_ACCEPTED)
+    
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([authentication.BasicAuthentication])
+class task_detail(APIView):
+    http_method_names = ['get'] 
+
+    def get(self, request, pk):
+        try:
+            objs = Task.objects.get(pk = pk)
+        except Task.DoesNotExist:
+            return Response({
+                'message':'enter valid id'
+            }, status.HTTP_404_NOT_FOUND)
+        serializer = TaskSerializer(objs, many=False)
+        return Response({
+            'data':serializer.data
+        }, status.HTTP_200_OK)
 
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([authentication.BasicAuthentication])
@@ -73,7 +90,6 @@ class TagAPI(APIView):
 
     def get(self, request):
         objs = Tag.objects.all()
-        print(objs)
         serializer = TagSerializer(objs, many=True)
         return Response({
             'data':serializer.data
