@@ -57,6 +57,10 @@ class TaskAPI(APIView):
     
     def delete(self, request):
         data = request.data
+        if data == {}:
+            return Response({
+                'message':'id field required'}
+                )
         objs = Task.objects.get(id = data['id'])
         objs.delete()
         return Response({
@@ -87,6 +91,10 @@ class TagAPI(APIView):
 
     def delete(self, request):
         data = request.data
+        if data == {}:
+            return Response({
+                'message':'id field required.'
+            })
         objs = Tag.objects.get(id = data['id'])
         objs.delete()
         return Response({

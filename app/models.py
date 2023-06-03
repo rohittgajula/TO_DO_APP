@@ -2,10 +2,12 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
 
+# Using validate method to compare due date and timestamp.
 def validate_due_date(value):
         if datetime.combine(value,datetime.min.time()) < datetime.now():
             raise ValidationError("Due date must be greater than the created date.")
 
+# creating new class to add tags
 class Tag(models.Model):
     name = models.CharField(max_length=30)
 
